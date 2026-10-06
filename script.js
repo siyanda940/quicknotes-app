@@ -6,26 +6,43 @@ const noteCount = document.querySelector("#note-count");
 const errorMessage = document.querySelector("#error-message");
 const searchInput = document.querySelector("#search-input");
 
-let notes = [];
+let notes = JSON.parse(localStorage.getItem("quickNotes")) || [];
+
+function saveNotes() {
+  localStorage.setItem("quickNotes", JSON.stringify(notes));
+}
 
 function render() {
   notesList.textContent = "";
 
-  notes.forEach((note) => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+
+  const filteredNotes = notes.filter((note) =>
+    note.text.toLowerCase().includes(searchTerm)
+  );
+
+  if (filteredNotes.length === 0 && searchTerm !== "") {
+    const noResults = document.createElement("li");
+    noResults.textContent = "No notes match your search.";
+    notesList.appendChild(noResults);
+  }
+
+  filteredNotes.forEach((note) => {
     const noteItem = document.createElement("li");
     noteItem.classList.add("note-card");
 
-    const categoryClass = `category-${note.category.toLowerCase()}`;
-    noteItem.classList.add(categoryClass);
+    noteItem.classList.add(
+      `category-${note.category.toLowerCase()}`
+    );
 
     const noteText = document.createElement("p");
     noteText.textContent = note.text;
 
     const categoryLabel = document.createElement("small");
-    categoryLabel.textContent = note.category;
+    categoryLabel.textContent = `Category: ${note.category}`;
 
     const date = document.createElement("small");
-    date.textContent = note.createdAt;
+    date.textContent = `Created: ${note.createdAt}`;
 
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
@@ -33,6 +50,7 @@ function render() {
 
     deleteButton.addEventListener("click", () => {
       notes = notes.filter((item) => item.id !== note.id);
+      saveNotes();
       render();
     });
 
@@ -81,8 +99,15 @@ noteForm.addEventListener("submit", (event) => {
   };
 
   notes.push(note);
+  saveNotes();
 
   render();
 
   noteInput.value = "";
 });
+
+searchInput.addEventListener("input", () => {
+  render();
+});
+
+render();
