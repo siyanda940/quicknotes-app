@@ -1,0 +1,166 @@
+/* Box-sizing reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f8;
+  color: #222;
+}
+
+/* Header */
+header {
+  background-color: #008080;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+}
+
+header p {
+  margin: 0;
+}
+
+/* Main content */
+main {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Sections */
+section {
+  background-color: white;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+/* Form */
+#note-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#note-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+#note-input,
+#note-category,
+#search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+#note-category {
+  min-width: 130px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #008080;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+}
+
+button:hover {
+  background-color: #006666;
+}
+
+/* Error message */
+#error-message {
+  color: #c62828;
+  font-weight: bold;
+  min-height: 20px;
+}
+
+/* Search */
+#search-input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Notes list */
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Note cards */
+.note-card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #fafafa;
+}
+
+.note-card p {
+  margin: 8px 0;
+}
+
+.note-card button {
+  background-color: #c62828;
+}
+
+.note-card button:hover {
+  background-color: #9b1c1c;
+}
+
+/* Category styles */
+.category-personal {
+  border-left: 6px solid #008080;
+}
+
+.category-work {
+  border-left: 6px solid #8b0000;
+}
+
+.category-study {
+  border-left: 6px solid #1976d2;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  #note-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #note-input,
+  #note-category,
+  #note-form button {
+    width: 100%;
+  }
+
+  main {
+    margin-top: 20px;
+  }
+}
