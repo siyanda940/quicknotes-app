@@ -31,6 +31,11 @@ function render() {
     deleteButton.type = "button";
     deleteButton.textContent = "Delete";
 
+    deleteButton.addEventListener("click", () => {
+      notes = notes.filter((item) => item.id !== note.id);
+      render();
+    });
+
     noteItem.appendChild(noteText);
     noteItem.appendChild(categoryLabel);
     noteItem.appendChild(document.createElement("br"));
@@ -40,6 +45,14 @@ function render() {
 
     notesList.appendChild(noteItem);
   });
+
+  if (notes.length === 0) {
+    noteCount.textContent = "You have no notes yet.";
+  } else if (notes.length === 1) {
+    noteCount.textContent = "You have 1 note.";
+  } else {
+    noteCount.textContent = `You have ${notes.length} notes.`;
+  }
 }
 
 noteForm.addEventListener("submit", (event) => {
@@ -47,6 +60,18 @@ noteForm.addEventListener("submit", (event) => {
 
   const text = noteInput.value.trim();
   const category = noteCategory.value;
+
+  if (text === "") {
+    errorMessage.textContent = "Please type a note first.";
+    return;
+  }
+
+  if (text.length > 200) {
+    errorMessage.textContent = "Notes must be 200 characters or fewer.";
+    return;
+  }
+
+  errorMessage.textContent = "";
 
   const note = {
     id: Date.now(),
